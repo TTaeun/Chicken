@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class Player : MonoBehaviour {
-   
+public class Player : MonoBehaviour
+{
+
     private Player[] thePlayer;
     [SerializeField]
     private GameObject MapiaKill;
@@ -11,14 +12,17 @@ public class Player : MonoBehaviour {
     private InputField KillName;
     public string character;
     public int selectedNum;
+    private float Settime;
+    private float currentTime;
     public enum Character
     {
         Mapia, helper, policer, civil1, civil2
     }
-    private void job(Character i){
-        switch(i)
+    private void job(Character i)
+    {
+        switch (i)
         {
-            case Character.Mapia :
+            case Character.Mapia:
                 character = "Mapia";
                 break;
             case Character.helper:
@@ -34,7 +38,7 @@ public class Player : MonoBehaviour {
                 character = "civil2";
                 break;
 
-        } 
+        }
 
     }
     public void Kill()
@@ -44,31 +48,41 @@ public class Player : MonoBehaviour {
         {
             MapiaKill.SetActive(true);
         }
-        for (int i=0; i <thePlayer.Length;i++)
+        for (int i = 0; i < thePlayer.Length; i++)
         {
-            if (KillName.text == thePlayer[i].name && thePlayer[i].character != "Mapia") 
+            if (KillName.text == thePlayer[i].name && thePlayer[i].character != "Mapia")
             {
-                Debug.Log("죽"+KillName.text);
+                Debug.Log("죽" + KillName.text);
                 thePlayer[i].gameObject.SetActive(false);
                 Debug.Log(gameObject.name + "사망하셨습니다");
                 MapiaKill.SetActive(false);
                 break;
-                
+
             }
-            
+
         }
-       
-        
-    }
-	// Use this for initialization
-	void Start () {
-        thePlayer = FindObjectsOfType<Player>();
-        job((Character)selectedNum);
+
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-      
-	}
+
+    void Start()
+    {
+        thePlayer = FindObjectsOfType<Player>();
+        job((Character)selectedNum);
+        Settime = 10f;
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        currentTime += Time.deltaTime;
+        Debug.Log(currentTime);
+        if (currentTime >= Settime)
+        {
+            Kill();
+            currentTime = 0f;
+        }
+
+    }
 }
