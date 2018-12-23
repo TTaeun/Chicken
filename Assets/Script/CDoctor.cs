@@ -8,14 +8,14 @@ public class CDoctor : ICharacter {
 	void Start () {
         job = "doctor";
 
-        Skill();
+        OnSkill();
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
-    private void Skill()
+    override protected void OnSkill()
     {
         Debug.Log("1");
     }

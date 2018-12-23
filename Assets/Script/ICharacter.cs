@@ -16,7 +16,7 @@ public class ICharacter : MonoBehaviour {
 		
 	}
 
-    virtual protected void Skill() 
+    virtual protected void OnSkill() 
     {
         Debug.Log("2");
     }
